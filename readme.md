@@ -4,30 +4,10 @@ A Laravel package which adds the ability to create "showcases", or view boxes wh
 
 > Still being developed!
 
-## Todos:
+## [Projects](https://github.com/BrokerExchange/Showcase/projects):
 
-  - 1.0
-    - [x] add the admin section~
-    - [x] create components for dropping in the view boxes~
-    - [ ] add sort order functionality within displays for trophies
-    - [ ] unit tests
-    - [ ] show trophies associated with a display on the show form
-    - [ ] show displays associated with a trophy on the show form
-    - [ ] automate including the assets in the test project
-    - [x] add validation rule for checking template files~
-    - [ ] finish adding flash messages for CRUD
-    - [ ] Vue multiselect for trophy display select
-      - [ ] combine with sort order selection
-    - [ ]  redo nav dropdowns to use scrollbars for large amounts
-  - 1.1
-    - [ ]  Replace buttons with FontAwesome icons where appropriate
-    - [ ]  add ability to use a custom auth guard
-    - [ ]  add image uploader that takes care of uploading images to the CDN
-    - [x]  add way to mass-assign trophies to a display (instead of one at a time)~
-    - [ ]  add Trophy Groups
-      - [ ] and the ability to assign all Trophy Group members to a Display
-    - [ ]  add Display Groups
-      - [ ] and the ability to assign a new Trophy to all Displays in a group
+  - [ ] [Roadmap](https://github.com/BrokerExchange/Showcase/projects/1)
+
 
 ## Installation
 
