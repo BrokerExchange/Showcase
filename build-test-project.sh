@@ -1,18 +1,17 @@
 # Change these to the values for your test MySQL DB
-db_host=192.168.10.10
+db_host="192.168.10.10"
 db_port=3306
-db_database=homestead
+db_database=showcase_test_db
 db_username=homestead
 db_password=secret
 
 if [ -d "./test-project" ]; then
-    cd test-project
-    php artisan migrate:reset
-    cd ..
+    php ./reset-db.php $db_host $db_database $db_username $db_password
     rm -rf test-project
     echo "Removed old test project."
 fi
 
+php ./create-db.php $db_host $db_database $db_username $db_password
 composer create-project laravel/laravel test-project 5.4.*
 php ./edit-composer.php
 cd test-project
@@ -28,7 +27,7 @@ sed -i '' 's/Laravel\\Tinker\\TinkerServiceProvider::class,/Laravel\\Tinker\\Tin
         Laracasts\\Flash\\FlashServiceProvider::class,/' ./config/app.php
 
 cp ../UsersTableSeeder.php ./database/seeds/
-composer require brokerexchange/showcase=dev-feature/1.0
+composer require brokerexchange/showcase=dev-feature/namespace-showcase-routes
 composer dump-autoload
 echo "Pre auth"
 php artisan make:auth

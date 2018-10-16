@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Showcase\App\Display;
 use Showcase\App\Trophy;
 use Showcase\App\Http\Requests\TrophyRequest;
+use Showcase\Showcase;
 
 class TrophyController extends Controller
 {
@@ -29,10 +30,13 @@ class TrophyController extends Controller
         $default_view = request()->display !== null
             ? Display::find($display)->default_trophy_component_view
             : null;
+        
+        $trophyViews = Showcase::getViewFilenamesBasic('trophy');
 
-        // $component_views = Storage::files(base_dir('resources/views/public/components/trophies'));
-
-        return view('showcase::app.trophy.create', compact('default_view', 'displays', 'component_views'));
+        return view(
+            'showcase::app.trophy.create',
+            compact('default_view', 'displays', 'trophyViews')
+        );
     }
 
     /**
@@ -48,7 +52,7 @@ class TrophyController extends Controller
         $trophy->displays()->detach();
         $trophy->displays()->attach($request->displays);
 
-        return redirect()->route('trophies.show', compact('trophy'));
+        return redirect()->route(config('showcase.route_prefix', 'showcase') . '.trophies.show', compact('trophy'));
     }
 
     /**
@@ -70,7 +74,12 @@ class TrophyController extends Controller
      */
     public function edit(Trophy $trophy)
     {
-        return view('showcase::app.trophy.edit', compact('trophy', 'displays'));
+        $trophyViews = Showcase::getViewFilenamesBasic('trophy');
+
+        return view(
+            'showcase::app.trophy.edit',
+            compact('trophy', 'displays', 'trophyViews')
+        );
     }
 
     /**
@@ -89,7 +98,7 @@ class TrophyController extends Controller
 
         flash()->success('Trophy updated!');
 
-        return redirect()->route('trophies.show', compact('trophy'));
+        return redirect()->route(config('showcase.route_prefix', 'showcase') . '.trophies.show', compact('trophy'));
     }
 
     /**
@@ -104,6 +113,6 @@ class TrophyController extends Controller
 
         $trophy->delete();
 
-        return redirect()->route('trophies.index');
+        return redirect()->route(config('showcase.route_prefix', 'showcase') . '.trophies.index');
     }
 }

@@ -1,13 +1,29 @@
-@extends('showcase::app.layouts.app') 
-@section('title', 'Edit Trophy') 
+@extends('showcase::app.layouts.app')
+
+@section('title', 'Edit Trophy')
+
 @section('content')
 <main class="col-md-6 showcase-trophy-main">
     <h1>Edit Trophy</h1>
-    <form action="{{route('trophies.update', compact('display', 'trophy'))}}" method="post">
+    <form action="{{route(config('showcase.route_prefix', 'showcase') . '.trophies.update', compact('display', 'trophy'))}}" method="post">
         {{csrf_field()}} {{method_field('PUT')}}
         <div class="form-group">
             <label for="name">Component View</label>
-            <input class="form-control" type="text" name="component_view" value="{{$trophy->component_view}}">
+            {{-- <input class="form-control" type="text" name="component_view" value="{{$trophy->component_view}}"> --}}
+            <select class="form-control" name="component_view">
+                @foreach($trophyViews as $view)
+                <option
+                    value="{{ $view }}"
+                    {{ 
+                        old('component_view', $trophy->component_view) === $view 
+                            ? 'selected'
+                            : ''
+                    }}
+                >
+                    {{ $view }}
+                </option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="name">Trophy Name</label>
@@ -36,5 +52,4 @@
         <button class="btn btn-success btn-block" type="submit">Update</button>
     </form>
 </main>
-
 @stop
